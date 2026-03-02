@@ -1,7 +1,7 @@
 <?php
 $host = 'db';
 $user = 'root';
-$pass = '07ghosth';
+$pass = '12345678';
 $db   = 'mysql'; // Usando o banco padrão do MySQL para facilitar
 
 $conn = new mysqli($host, $user, $pass, $db);

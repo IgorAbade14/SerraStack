@@ -8,6 +8,7 @@ desktop.ini
 .idea/
 
 db/
+meus-dados/
 
 *.log
 .DS_Store
