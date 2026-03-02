@@ -32,5 +32,3 @@ networks:
   stack-network:
     driver: bridge
 
-volumes:
-  db_data:

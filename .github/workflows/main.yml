@@ -26,22 +26,28 @@ jobs:
           echo "Aguardando serviços iniciarem..."
           sleep 15
 
-      - name: Test Infrastructure (Full Stack Test)
+      - name: Testar Funcionamento (Healthcheck)
         run: |
-          # Valida se o site responde 'SerraStack'
-          if curl -s --retry 3 --retry-delay 5 localhost:8082 | grep -qi "SerraStack"; then
-            echo "✅ Frontend/PHP Healthcheck Passed!"
+          # Espera um pouco mais para o PHP e o Nginx estabilizarem
+          sleep 20
+          
+          # 1. Testa se o serviço 'web' está entregando a página
+          if curl -s localhost:8082 | grep -qi "SerraStack"; then
+            echo "✅ Nginx e PHP estão conversando!"
           else
-            echo "❌ Frontend/PHP Healthcheck Failed!"
-            docker compose logs app
+            echo "❌ Erro: O site não respondeu como esperado."
+            echo "--- LOGS DO SERVIDOR WEB ---"
+            docker compose logs web
+            echo "--- LOGS DO PHP ---"
+            docker compose logs php
             exit 1
           fi
 
-          # Valida se o container do banco está ativo
+          # 2. Verifica se o Banco de Dados (db) subiu sem crashar
           if [ $(docker ps -q -f name=db) ]; then
-            echo "✅ MySQL Container is Running!"
+            echo "✅ Container de Banco de Dados (db) OK!"
           else
-            echo "❌ MySQL Container is Down!"
+            echo "❌ Erro: O container 'db' caiu."
             docker compose logs db
             exit 1
           fi

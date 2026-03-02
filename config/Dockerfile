@@ -1,9 +1,10 @@
-# 1. Use a lightweight Nginx base image
 FROM nginx:alpine
 
-# 2. Copy the content from our local 'app' folder into the container
-# Nginx serves files located in /usr/share/nginx/html
-COPY ./app/index.html /usr/share/nginx/html/index.html
+# Remove a config padrão para não dar conflito
+RUN rm /etc/nginx/conf.d/default.conf
 
-# 3. Expose port 80 (Standard Web Port)
+# Copia a SUA configuração mágica para o lugar certo
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Não precisa de COPY ./app aqui se você já usa VOLUMES no Compose!
 EXPOSE 80
