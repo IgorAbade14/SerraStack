@@ -6,3 +6,8 @@ desktop.ini
 
 .vscode/
 .idea/
+
+db/
+
+*.log
+.DS_Store

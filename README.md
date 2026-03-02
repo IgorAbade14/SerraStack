@@ -1,43 +1,80 @@
-# ⛰️ SerraStack v1.0
+# 🚢 SerraStack v1.0 - Full Stack Docker Environment
 
-SerraStack is a high-performance deployment pipeline for local environments. It automates the lifecycle of Docker containers, ensuring that your web application is built, cleaned, and validated with a single command.
+O SerraStack é um ambiente de desenvolvimento de alta performance que automatiza a orquestração de uma stack LEMP (Linux, Nginx, MySQL, PHP) local. Ele garante que sua aplicação tenha persistência de dados, rede isolada e validação automática com um único comando.
 
-## 🚀 Features
-* **Automated Build & Deploy:** One-click script to transform source code into a running Nginx container.
-* **Smart Cleanup:** Automatically detects and removes conflicting containers to ensure a clean state.
-* **Integrated Healthcheck:** Uses `curl` to verify the application's health (HTTP 200 OK) before finishing.
-* **Visual Telemetry:** ANSI color-coded terminal output for instant status recognition.
-* **Error Resilience:** Implements `set -e` logic to halt execution if any critical step fails.
+---
 
-## 📂 Project Structure
-* `scripts/serrastack.sh`: The main script containing the automation and healthcheck logic.
-* `config/Dockerfile`: The blueprint using an optimized Nginx-Alpine configuration.
-* `app/`: Directory where the source code (HTML/CSS/JS) is stored.
+## 🚀 Novas Funcionalidades (v1.1)
 
-## 🛠️ Requirements
-* **OS:** Linux Mint / Ubuntu / Debian.
-* **Dependencies:** `Docker Engine`, `bash`, `curl`.
+### Orquestração Multi-Container
+Gerenciamento sincronizado de Nginx, PHP-FPM e MySQL 8.0.
 
-## 📖 How to Use
-1. Clone this repository:
-   ```bash
-   git clone [[https://github.com/IgorAbade14/SerraStack.git](https://github.com/IgorAbade14/SerraStack.git)]```
+### Persistência com Named Volumes
+Uso de volumes Docker dedicados (`db_data`) para evitar erros de permissão e garantir que seus dados não sumam ao desligar.
 
-2. Give execution permission to the script with Bash:
+### Rede Isolada (Bridge)
+Comunicação segura entre serviços via DNS interno do Docker.
 
-* username/home: ~/SerraStack$
-* username/home: ~/SerraStack$ chmod +x scripts/.serrastack.sh 
+### Auto-Healing Script
+Script em Bash que limpa containers órfãos e reconstrói o ambiente do zero.
 
-And run the script!
+### Verificação de DNS
+Validação interna de rede para garantir que o PHP "enxerga" o banco antes de liberar o acesso.
 
-* username/home: ~/SerraStack$ ./scripts/serrastack.sh
+---
 
-## 🧠 Learning Journey
-* This project was developed as part of my DevOps learning path. It covers:
-* Infrastructure as Code (IaC) using Dockerfile.
-* Shell Scripting Mastery (Exit codes, variables, and signaling).
-* Idempotency in automation scripts.
-* Automated Service Validation (Healthchecks).
+## 📂 Estrutura do Projeto
 
-## 👨‍💻  Developed by
- `[https://github.com/IgorAbade14]`
+- `docker-compose.yml`: A "planta baixa" da infraestrutura.
+- `nginx.conf`: Configuração otimizada para servir PHP e arquivos estáticos.
+- `app/index.php`: Script de teste que valida a conexão e registra logs no banco.
+- `scripts/serrastack.sh`: Automação de build, cleanup e healthcheck.
+
+---
+
+## 🛠️ Requisitos
+
+- OS: Linux (Ubuntu/Mint recomendado).
+- Docker & Docker Compose (V2 recomendado).
+- curl (para os healthchecks do script).
+
+---
+
+## 📖 Como Usar
+
+### Clone o repositório:
+
+```bash
+git clone https://github.com/IgorAbade14/SerraStack.git
+cd SerraStack
+```
+
+### Dê permissão e execute o script de automação:
+
+```bash
+chmod +x scripts/serrastack.sh
+./scripts/serrastack.sh
+```
+
+### Acesse no navegador:
+
+```
+http://localhost:8082
+```
+
+---
+
+## 🧠 Jornada de Aprendizado (DevOps Path)
+
+Este projeto documenta a evolução técnica em:
+
+- Idempotência: Scripts que podem rodar mil vezes e entregam sempre o mesmo resultado.
+- Resolução de Problemas (Troubleshooting): Ajuste de permissões de socket no MySQL e depuração de redes Docker.
+- Infrastructure as Code (IaC): Definição de serviços e volumes via YAML.
+- Healthchecks: Validação de serviços antes da entrega final.
+
+---
+
+## 👨‍💻 Desenvolvido por
+
+[https://github.com/IgorAbade14
