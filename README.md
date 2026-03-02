@@ -1,10 +1,10 @@
-# 🚢 SerraStack v1.0 - Full Stack Docker Environment
+# 🚢 SerraStack v2.0 - Full Stack Docker Environment
 
 O SerraStack é um ambiente de desenvolvimento de alta performance que automatiza a orquestração de uma stack LEMP (Linux, Nginx, MySQL, PHP) local. Ele garante que sua aplicação tenha persistência de dados, rede isolada e validação automática com um único comando.
 
 ---
 
-## 🚀 Novas Funcionalidades (v1.1)
+## 🚀 Novas Funcionalidades (v2.0)
 
 ### Orquestração Multi-Container
 Gerenciamento sincronizado de Nginx, PHP-FPM e MySQL 8.0.
